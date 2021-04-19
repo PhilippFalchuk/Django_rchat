@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title%}{{title}}{% endblock %}
+
+{% block content%}
+    <h1>Это главная страница сайта</h1>
+    {% if messages %}
+    {% for el in messages %}
+    <div class="alert alert-warning mt-2">
+        <h3>{{ el.name }}</h3>
+        <p>{{ el.message }}</p>
+    </div>
+    {% endfor %}
+    {% else %}
+        <p>Пока тут нет комментариев((( оставьте свой</p>
+    {% endif %}
+
+<h1>Написать коментарий</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form.name}}<br>
+    {{form.message}}<br>
+    <button type="submit" class="btn btn-success">отправить</button>
+
+</form>
+
+
+{% endblock %}
+

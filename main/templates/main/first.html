@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block title%}{{title}}{% endblock %}
+
+{% block content%}
+
+    <h1>Это {{title}}</h1>
+    {% if tables %}
+    {% for el in tables %}
+    <div class="alert alert-warning mt-2">
+        <h3>{{ el.upperfield }}</h3>
+        <p>{{ el.lowerfield }}</p>
+    </div>
+    {% endfor %}
+    {% else %}
+        <p>Пока тут нет комментариев(((. оставьте свой</p>
+    {% endif %}
+
+<h1>Написать коментарий</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form.upperfield}}<br>
+    {{form.lowerfield}}<br>
+    <button type="submit" class="btn btn-success">отправить</button>
+
+
+
+{% endblock %}
