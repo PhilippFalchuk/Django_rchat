@@ -3,14 +3,14 @@ from django.db import models
 
 class Messages(models.Model):
     name = models.CharField('Имя', max_length=50)
-    message = models.TextField("Коментарий")
+    message = models.TextField("Сообщение")
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Коментарий'
-        verbose_name_plural = 'Коментарии'
+        verbose_name = 'Сообщение'
+        verbose_name_plural = 'Сообщения'
 
 
 class NewTable(models.Model):
