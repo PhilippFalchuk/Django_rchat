@@ -13,7 +13,7 @@ class MessagesForm(ModelForm):
         }),
             "message": Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите коментарий'
+                'placeholder': 'Введите сообщение'
             }),
         }
 

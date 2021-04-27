@@ -1,24 +1,28 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Messages, NewTable
 from .forms import MessagesForm, NewTableForm
-from .myclasses import Username
+from django.http import HttpResponseRedirect
 
 
 def index(request):
-    uname = Username('none-1')
+    if 'name' not in request.session:
+        request.session['name'] = 'none-1_session'
     if request.method == 'POST':
         form = MessagesForm(request.POST)
         if form.is_valid():
-            uname.name = form['name'].value()
+            request.session.set_expiry(0)
+            request.session['name'] = form['name'].value()
             form.save()
+            form = MessagesForm()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
-    messages = Messages.objects.order_by('id')
-    if uname.name == 'none-1':
+    messages = Messages.objects.order_by('-id')[0:4]
+    if request.session['name'] == 'none-1_session':
         form = MessagesForm()
     else:
-        form = MessagesForm(initial={'name': uname.name})
-    context = {'title': 'Главная страница сайта', 'messages': messages, 'form': form, 'name': uname.name}
+        form = MessagesForm(initial={'name': request.session['name']})
+        form.fields['name'].widget.attrs['readonly'] = True
+    context = {'title': 'Главная комната', 'messages': messages, 'form': form, 'name': request.session['name']}
     return render(request, 'main/index.html', context)
 
 

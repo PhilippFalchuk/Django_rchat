@@ -3,19 +3,19 @@
 {% block title%}{{title}}{% endblock %}
 
 {% block content%}
-    <h1>Это главная страница сайта</h1>
+    <h1>Это главная комната сайта</h1>
     {% if messages %}
-    {% for el in messages %}
-    <div class="alert alert-warning mt-2">
+    {% for el in messages reversed%}
+    <div class="alert alert-warning mt-2" style="background-color:white; border:black">
         <h3>{{ el.name }}</h3>
         <p>{{ el.message }}</p>
     </div>
     {% endfor %}
     {% else %}
-        <p>Пока тут нет комментариев((( оставьте свой</p>
+        <p>Пока тут нет сообщений((( оставьте своё</p>
     {% endif %}
 
-<h1>Написать коментарий</h1>
+<h1>Написать сообщение</h1>
 <form method="post">
     {% csrf_token %}
     {{form.name}}<br>
